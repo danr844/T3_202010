@@ -20,6 +20,11 @@ public class ArregloDinamico implements IArregloDinamico {
          * Arreglo de elementos de tamaNo maximo
          */
         private String elementos[ ];
+        
+        
+        private Node primero;
+        
+        private int numeroNodos;
 
         /**
          * Construir un arreglo con la capacidad maxima inicial.
@@ -30,6 +35,8 @@ public class ArregloDinamico implements IArregloDinamico {
                elementos = new String[max];
                tamanoMax = max;
                tamanoAct = 0;
+               primero = null;
+               numeroNodos = 0;
         }
         
 		public void agregar( String dato )
