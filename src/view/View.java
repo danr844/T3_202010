@@ -20,6 +20,7 @@ public class View
 			System.out.println("4. Eliminar String");
 			System.out.println("5. Imprimir el Arreglo");
 			System.out.println("6. Exit");
+			System.out.println("7. Cargar informacion de los comparendos");
 			System.out.println("Dar el numero de opcion a resolver, luego oprimir tecla Return: (e.g., 1):");
 		}
 

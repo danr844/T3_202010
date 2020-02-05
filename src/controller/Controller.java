@@ -2,6 +2,10 @@ package controller;
 
 import java.util.Scanner;
 
+import com.sun.glass.events.ViewEvent;
+
+import model.data_structures.Multa;
+import model.data_structures.Node;
 import model.logic.Modelo;
 import view.View;
 
@@ -27,12 +31,12 @@ public class Controller {
 	{
 		Scanner lector = new Scanner(System.in);
 		boolean fin = false;
-		Integer dato = 0;
+		
 		Integer respuesta = 0;
 
 		while( !fin ){
 			view.printMenu();
-
+			Integer dato =0;
 			int option = lector.nextInt();
 			switch(option){
 				case 1:
@@ -46,7 +50,6 @@ public class Controller {
 				case 2:
 					view.printMessage("--------- \nDar cadena (simple) a ingresar: ");
 					dato = lector.nextInt();
-					modelo.agregar(dato);
 					view.printMessage("Dato agregado");
 					view.printMessage("Numero actual de elementos " + modelo.darTamano() + "\n---------");						
 					break;
@@ -92,7 +95,17 @@ public class Controller {
 					lector.close();
 					fin = true;
 					break;	
-
+				case 7:
+					view.printMessage("--------- Se esta cargando la informacion \n---------");
+					modelo.cargarInfo();
+					if(modelo.darPrimero()!=null){
+						Node<Multa> actual = modelo.darPrimero();
+						while(actual!=null){
+							view.printMessage(""+actual.darTvalor().darID()+" "+actual.darTvalor().darFecha()+" "+ actual.darTvalor().darMedio()+" "+actual.darTvalor().darClaseVehiculo()+" "+actual.darTvalor().darTipoServicio()+" "+actual.darTvalor().darInfraccion()+" "+actual.darTvalor().darDescInfo()+" "+ actual.darTvalor().darLocalidad());
+							actual = actual.darSiguiente();
+						}
+					}
+					
 				default: 
 					view.printMessage("--------- \n Opcion Invalida !! \n---------");
 					break;
