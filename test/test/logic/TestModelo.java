@@ -1,6 +1,9 @@
 package test.logic;
 
 import static org.junit.Assert.*;
+
+import model.data_structures.Multa;
+import model.data_structures.Node;
 import model.logic.Modelo;
 
 import org.junit.Before;
@@ -10,29 +13,46 @@ public class TestModelo {
 	
 	private Modelo modelo;
 	private static int CAPACIDAD=100;
+	private Multa nueva;
+	private Node<Multa> nodo;
+	private Multa nueva2;
+
+
 	
 	@Before
 	public void setUp1() {
-		modelo= new Modelo(CAPACIDAD);
+		modelo= new Modelo();
+		nueva = new Multa(1234, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
+		nueva2 = new Multa(0000, "0000", "0009", "0008", "0007", "0006", "0005", "0004");
+		
+		nodo=new Node<Multa>();
+		Node<Multa> nodo2 =new Node<Multa>();
+
+		nodo.cambiarDato(nueva);
+		nodo2.cambiarDato(nueva2);
+		
+		nodo.cambiarSiguiente(nodo2);
+		
+		modelo.agregar(nueva);
+		modelo.agregar(nueva2);
+		
 	}
 
 	public void setUp2() {
-		for(int i =0; i< CAPACIDAD;i++){
-			modelo.agregar(i);
-		}
+		//test para el arreglo dinamico, no aplica.
 	}
 
 	@Test
 	public void testModelo() {
+		setUp1();
 		assertTrue(modelo!=null);
-		assertEquals(0, modelo.darTamano());  // Modelo con 0 elementos presentes.
 	}
 
 	@Test
 	public void testDarTamano() {
 		// TODO
-		setUp2();
-		assertEquals("No tiene el tamaño esperado", 100, modelo.darTamano());
+		setUp1();
+		assertEquals("No tiene el tamaño esperado", 2, modelo.darNumeroNodos());
 		
 	}
 
@@ -40,35 +60,29 @@ public class TestModelo {
 	public void testAgregar() 
 	{
 			// TODO Completar la prueba
-			setUp2();
-			assertEquals("No tiene el numero de elementos esperados", 100,modelo.darTamano());
-			modelo.agregar(0);
-			assertEquals("No tiene el numero de elementos esperados", 101,modelo.darTamano());
+		setUp1();
+		assertEquals("No tiene el tamaño esperado", 2, modelo.darNumeroNodos());
+		nueva = new Multa(1, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
+		modelo.agregar(nueva);
+		assertEquals("No tiene el tamaño esperado", 3, modelo.darNumeroNodos());
+
 			
 	}
 
 	@Test
 	public void testBuscar()
 	{
-		setUp2();
+		setUp1();
 		// TODO Completar la prueba
-		assertEquals("No se encontro el objeto esperado",(Integer)2,modelo.buscar(2) );
-		assertNotNull("El onjeto no deberia ser null", modelo.buscar(2));
-		assertEquals("No se encontro el objeto esperado",(Integer)99,modelo.buscar(99) );
-		assertNotNull("El objeto deberia ser distinto de null",modelo.buscar(50));
+		assertNotNull("El objeto no deberia ser null", modelo.buscar(1234));
+		assertNotNull("El objeto no deberia ser null", modelo.buscar(0000));
+		assertNull("El objeto deberia ser distinto de null",modelo.buscar(1));
 	}
 	@Test
-	public void testEliminar() {
+	
+	public void testCargarInfo() {
 		setUp2();
-		// TODO Completar la prueba
-		modelo.eliminar((Integer) modelo.dardatos().darElemento(0));
-		assertEquals("El elemento no es el esperado",1, modelo.dardatos().darElemento(0));	
-
-		assertEquals("El elemento no es el esperado",99, modelo.dardatos().darElemento(98));	
-
-		assertNull("El elemento no fue eliminado correctamente", modelo.dardatos().darElemento(99) );
-		
-		
+		assertNotNull("la informacon no fue cargada", modelo.cargarInfo());
 	}
 
 }

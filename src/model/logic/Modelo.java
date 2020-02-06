@@ -86,12 +86,7 @@ public class Modelo {
 	}
 	
 	public Node<Multa> darUltimoNodo(){
-		Node<Multa> actual = primero;
-		
-		while(actual!=null){
-			actual = actual.darSiguiente();
-		}
-		return actual;
+		return ultimo;
 	}
 	
 	public List<Double> cargarInfo(){
@@ -146,9 +141,17 @@ public class Modelo {
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public Integer buscar(Integer dato)
+	public Node<Multa> buscar(int dato)
 	{
-		return (Integer) datos.buscar(dato);
+		Node <Multa> actual=primero;
+		while(actual!=null)
+		{
+		if(actual.darTvalor().darID()==dato)
+			return actual;
+		else actual=actual.darSiguiente();
+		
+		}
+		return null;
 	}
 
 	/**
