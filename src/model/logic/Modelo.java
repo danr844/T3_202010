@@ -101,23 +101,23 @@ public class Modelo {
 
 			Gson gson = new Gson();
 			
-			String path = "./data/data.json";
+			String path = "./data/comparendos_dei_2018_small.geojson";
 			JsonReader reader;
 
 			List<String> lista = new ArrayList<String>();
 
 			reader = new JsonReader(new FileReader(path));
 			JsonElement elem = JsonParser.parseReader(reader);
-			JsonArray ja = elem.getAsJsonArray();
+			JsonArray ja = elem.getAsJsonObject().get("features").getAsJsonArray();
 			for(JsonElement e: ja) {
-				int id = e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("OBJECTID").getAsInt();
-				String fecha = e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("FECHA_HORA").getAsString();
-				String medio = e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("MEDIO_DETE").getAsString();
-				String Clasevehi= e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("CLASE_VEHI").getAsString();
-				String tipoServicio = e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("TIPO_SERVI").getAsString();
-				String Infraccion =e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("INFRACCION").getAsString();
-				String DescInfra=e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("DES_INFRAC").getAsString();
-				String Localidad = e.getAsJsonObject().get("features").getAsJsonObject().get("properties").getAsJsonObject().get("LOCALIDAD").getAsString();
+				int id = e.getAsJsonObject().get("properties").getAsJsonObject().get("OBJECTID").getAsInt();
+				String fecha = e.getAsJsonObject().get("properties").getAsJsonObject().get("FECHA_HORA").getAsString();
+				String medio = e.getAsJsonObject().get("properties").getAsJsonObject().get("MEDIO_DETE").getAsString();
+				String Clasevehi= e.getAsJsonObject().get("properties").getAsJsonObject().get("CLASE_VEHI").getAsString();
+				String tipoServicio = e.getAsJsonObject().get("properties").getAsJsonObject().get("TIPO_SERVI").getAsString();
+				String Infraccion =e.getAsJsonObject().get("properties").getAsJsonObject().get("INFRACCION").getAsString();
+				String DescInfra=e.getAsJsonObject().get("properties").getAsJsonObject().get("DES_INFRAC").getAsString();
+				String Localidad = e.getAsJsonObject().get("properties").getAsJsonObject().get("LOCALIDAD").getAsString();
 
 				
 				Multa user = new Multa(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
