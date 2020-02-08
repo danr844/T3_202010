@@ -15,6 +15,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import model.data_structures.ArregloDinamico;
+import model.data_structures.Cola;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.Multa;
 import model.data_structures.Node;
@@ -28,10 +29,9 @@ public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private ArregloDinamico<Integer> datos;
 	private Node<Multa> primero;
 	private int numeroNodos;
-	private Node<Multa> ultimo;
+	private Cola<Multa> cola;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -40,22 +40,15 @@ public class Modelo {
 		primero = null;
 	}
 
-	/**
-	 * Constructor del modelo del mundo con capacidad dada
-	 * @param tamano
-	 */
-	public Modelo(int capacidad)
-	{
-		datos = new ArregloDinamico<Integer>(capacidad);
-	}
+
 
 	/**
 	 * Servicio de consulta de numero de elementos presentes en el modelo 
 	 * @return numero de elementos presentes en el modelo
 	 */
-	public int darTamano()
+	public int darTamanoCola()
 	{
-		return datos.darTamano();
+		return cola.dartamanoCola();
 	}
 
 	/**
@@ -63,33 +56,20 @@ public class Modelo {
 	 * @param <T>
 	 * @param dato
 	 */
-	public <T> void agregar(Multa dato)
+	public <T> void agregarALaCola(Multa dato)
 	{	
-		if(primero== null){
-			primero  = new Node <Multa>();
-			primero.cambiarDato(dato);
-			numeroNodos++;
-			ultimo = primero;
-		}
-		else{
-			Node<Multa> nodo= new Node<Multa>();
-			nodo.cambiarDato(dato);
-			ultimo.cambiarSiguiente(nodo);
-			ultimo = nodo;
-			numeroNodos++;
-		
-		}
-			
+		cola.enqueue(dato);	
 	}
-	public int darNumeroNodos(){
-		return numeroNodos;
+	public Node<Multa> darPrimerNodoCola(){
+		return cola.darPrimerElemento();
 	}
 	
-	public Node<Multa> darUltimoNodo(){
-		return ultimo;
+	public void eliminarEnCola()
+	{
+		cola.dequeue();
 	}
 	
-	public List<Double> cargarInfo(){
+	public List<Double> cargarInfoAlaCola(){
 		List<Double> geo = new ArrayList<Double>();
 
 		try {
@@ -116,7 +96,7 @@ public class Modelo {
 
 				
 				Multa user = new Multa(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
-				agregar(user);
+				agregarALaCola(user);
 				if(e.getAsJsonObject().has("geometry") && !e.getAsJsonObject().get("geometry").isJsonNull()) {
 					for(JsonElement geoElem: e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()) {
 						geo.add(geoElem.getAsDouble());
@@ -134,37 +114,34 @@ public class Modelo {
 		return geo;
 	}
 	public Node<Multa> darPrimero(){
-		return primero;
+		return cola.darPrimerElemento();
 	}
 	/**
 	 * Requerimiento buscar dato
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public Node<Multa> buscar(int dato)
-	{
-		Node <Multa> actual=primero;
-		while(actual!=null)
-		{
-		if(actual.darTvalor().darID()==dato)
-			return actual;
-		else actual=actual.darSiguiente();
-		
-		}
-		return null;
-	}
+//	public Node<Multa> buscar(int dato)
+//	{
+//		Node <Multa> actual=primero;
+//		while(actual!=null)
+//		{
+//		if(actual.darTvalor().darID()==dato)
+//			return actual;
+//		else actual=actual.darSiguiente();
+//		
+//		}
+//		return null;
+//	}
 
 	/**
 	 * Requerimiento eliminar dato
 	 * @param object Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public Integer eliminar(Integer object)
-	{
-		return  datos.eliminar(object);
-	}
-	public IArregloDinamico<Integer> dardatos(){
-		return datos;
-	}
+
+//	public IArregloDinamico<Integer> dardatos(){
+//		return datos;
+//	}
 
 }
