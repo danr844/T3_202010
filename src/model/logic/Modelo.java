@@ -18,6 +18,7 @@ import model.data_structures.ArregloDinamico;
 import model.data_structures.Cola;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.Multa;
+import model.data_structures.Pila;
 import model.data_structures.Node;
 
 
@@ -32,6 +33,7 @@ public class Modelo {
 	private Node<Multa> primero;
 	private int numeroNodos;
 	private Cola<Multa> cola;
+	private Pila<Multa> pila;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -50,6 +52,10 @@ public class Modelo {
 	{
 		return cola.dartamanoCola();
 	}
+	public int darTamanoPila()
+	{
+		return pila.darTamanoPila();
+	}
 
 	/**
 	 * Requerimiento de agregar dato
@@ -60,8 +66,18 @@ public class Modelo {
 	{	
 		cola.enqueue(dato);	
 	}
+	
+	public <T> void agregarALaPila(Multa dato)
+	{
+		pila.push(dato);
+	}
+	
 	public Node<Multa> darPrimerNodoCola(){
 		return cola.darPrimerElemento();
+	}
+	
+	public Node<Multa> darPrimerNodoPila(){
+		return pila.darPrimerElemento();
 	}
 	
 	public void eliminarEnCola()
@@ -69,7 +85,12 @@ public class Modelo {
 		cola.dequeue();
 	}
 	
-	public List<Double> cargarInfoAlaCola(){
+	public void eliminarEnPila()
+	{
+		pila.pop();
+	}
+	
+	public List<Double> cargarInfo(){
 		List<Double> geo = new ArrayList<Double>();
 
 		try {
@@ -97,6 +118,7 @@ public class Modelo {
 				
 				Multa user = new Multa(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
 				agregarALaCola(user);
+				agregarALaPila(user);
 				if(e.getAsJsonObject().has("geometry") && !e.getAsJsonObject().get("geometry").isJsonNull()) {
 					for(JsonElement geoElem: e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()) {
 						geo.add(geoElem.getAsDouble());
@@ -113,6 +135,7 @@ public class Modelo {
 		}
 		return geo;
 	}
+	
 	public Node<Multa> darPrimero(){
 		return cola.darPrimerElemento();
 	}
@@ -143,5 +166,4 @@ public class Modelo {
 //	public IArregloDinamico<Integer> dardatos(){
 //		return datos;
 //	}
-
 }

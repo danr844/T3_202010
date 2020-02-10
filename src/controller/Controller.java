@@ -41,15 +41,15 @@ public class Controller {
 			{
 			case 1:
 				view.printMessage("------------------------------------------------------------------------\n Se esta cargando la informacion \n------------------------------------------------------------------------");
-				modelo.cargarInfo();
+					modelo.cargarInfo();
 				if(modelo.darPrimero()!=null)
 				{
-					Node<Multa> encontrado = modelo.darPrimero();
+					Node<Multa> encontradoPila = modelo.darPrimerNodoPila();
+					Node<Multa> encontradoCola = modelo.darPrimerNodoCola();
 
-					view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
-					encontrado=modelo.darUltimoNodo();
-					view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
-					view.printMessage(modelo.darNumeroNodos()+"");
+					view.printMessage("Primer comparendo en la Cola:"+ encontradoCola.darTvalor().darID()+","+encontradoCola.darTvalor().darFecha()+","+ encontradoCola.darTvalor().darClaseVehiculo()+","+encontradoCola.darTvalor().darTipoServicio()+","+encontradoCola.darTvalor().darLocalidad()+"\n---------------------------");
+					view.printMessage("Primer comparendo en la Pila: "+ encontradoPila.darTvalor().darID()+","+encontradoPila.darTvalor().darFecha()+","+ encontradoPila.darTvalor().darClaseVehiculo()+","+encontradoPila.darTvalor().darTipoServicio()+","+encontradoPila.darTvalor().darLocalidad()+"\n---------------------------");
+					view.printMessage("Total de comparendos leidos: "+modelo.darTamanoPila());
 					view.printMessage("------------------------------------------------------------------------");
 
 				}
@@ -59,8 +59,8 @@ public class Controller {
 				view.printMessage("------------------------------------------------------------------------\n Ingrese el id buscado: \n------------------------------------------------------------------------");
 				int idBuscada = lector.nextInt();
 
-				Node<Multa> encontrado=modelo.buscar(idBuscada);
-				view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
+				//Node<Multa> encontrado=modelo.buscar(idBuscada);
+				//view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
 
 				break;
 
