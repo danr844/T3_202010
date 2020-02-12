@@ -1,7 +1,8 @@
 package model.data_structures;
 
 
-public class Cola<T> implements ICola<T>{
+public class Cola<T> implements ICola<T>
+{
 	private Node<T> inicioCola;
 	private Node<T> finCola;
 	private int tamanoCola;
@@ -10,6 +11,8 @@ public class Cola<T> implements ICola<T>{
 		inicioCola = null;
 		finCola = null;
 	}
+	
+	
 	public boolean estavacia(){
 		if(inicioCola==null)
 			return true;
@@ -17,6 +20,8 @@ public class Cola<T> implements ICola<T>{
 			return false;
 		}
 	}
+	
+	
 	public void enqueue(T multa)
 	{
 		Node<T> nuevo = new Node<>();
@@ -40,7 +45,11 @@ public class Cola<T> implements ICola<T>{
 			tamanoCola++;
 		}
 	}
+<<<<<<< HEAD
 	public T dequeue()
+=======
+	public Node<T> dequeue()
+>>>>>>> 241eafb98e096ca4faec158e3036bb10e3a01bda
 	{
 		if(!estavacia())
 		{
@@ -50,12 +59,20 @@ public class Cola<T> implements ICola<T>{
 				inicioCola = inicioCola.darSiguiente();
 				tamanoCola--;
 			}
+<<<<<<< HEAD
 			else
 			{
 				inicioCola= null;
 				tamanoCola--;
 			}
 			return valorEliminado.darTvalor();
+=======
+			else{
+				inicioCola= null;
+				tamanoCola = 0;
+			}
+			return valorEliminado;
+>>>>>>> 241eafb98e096ca4faec158e3036bb10e3a01bda
 		}
 		else
 		{
@@ -63,8 +80,22 @@ public class Cola<T> implements ICola<T>{
 		}
 	}
 	
+<<<<<<< HEAD
 	public int dartamanoCola(){
 		return tamanoCola;
 	}
+=======
+	
+	public int dartamanoCola()
+	{
+		return tamanoCola;
+	}
+	
+	
+	public Node<T> darPrimerElemento()
+	{
+		return inicioCola;
+	}
+>>>>>>> 241eafb98e096ca4faec158e3036bb10e3a01bda
 
 }
