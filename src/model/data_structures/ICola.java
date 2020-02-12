@@ -4,14 +4,13 @@ public interface ICola <T>{
 	
 	public void enqueue(T multa);
 	
-	public Node<T> dequeue();
+	public T dequeue();
 	
 	public boolean estavacia();
 	
 	public int dartamanoCola();
 	
-	public Node<T> darPrimerElemento();
-
+	
 
 
 

@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.Cola;
@@ -40,6 +41,7 @@ public class Modelo {
 	public Modelo()
 	{
 		primero = null;
+		numeroNodos=cola.dartamanoCola();
 	}
 
 
@@ -135,10 +137,56 @@ public class Modelo {
 		}
 		return geo;
 	}
-	
-	public Node<Multa> darPrimero(){
-		return cola.darPrimerElemento();
+
+	public Cola<Multa> consultaInfraccion()
+	{
+		 Cola<Multa> retorno= new Cola<Multa>();
+		 Cola<Multa> deComparar= new Cola<Multa>();
+		 String leyendo="";
+		 int i=0;
+		 while(i<numeroNodos)
+		 {
+			 if(deComparar.estavacia())
+			 {
+				 Multa primero=cola.dequeue();
+				 deComparar.enqueue(primero);
+				 leyendo=primero.darInfraccion();
+			 }
+			 else
+			 {
+				 Multa primero=cola.dequeue();
+				 if(leyendo.equals(primero.darInfraccion()))
+					 deComparar.enqueue(primero); 
+				 
+				 else
+				 {
+					 if(deComparar.dartamanoCola()>retorno.dartamanoCola())
+						 retorno=deComparar;
+					 
+					 deComparar=new Cola<Multa>();
+					 deComparar.enqueue(primero);
+					 leyendo=primero.darInfraccion();
+				 }
+			 }
+			 i++;
+		 }
+		 
+		 return retorno;
 	}
+	
+	private boolean estaEnLaLista(ArrayList<String> pLista, String pInfraccion)
+	{
+		boolean retorno=false;
+
+		for(String e: pLista)
+		{
+			if(e.equals(pInfraccion))
+				retorno=true;
+		}
+
+
+		return retorno;
+	}	
 	/**
 	 * Requerimiento buscar dato
 	 * @param dato Dato a buscar

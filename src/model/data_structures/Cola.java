@@ -5,6 +5,7 @@ public class Cola<T> implements ICola<T>{
 	private Node<T> inicioCola;
 	private Node<T> finCola;
 	private int tamanoCola;
+	
 	public Cola(){
 		inicioCola = null;
 		finCola = null;
@@ -26,6 +27,12 @@ public class Cola<T> implements ICola<T>{
 			finCola = nuevo;
 			tamanoCola++;
 		}
+		else if(inicioCola.darSiguiente()==null)
+		{
+			inicioCola.cambiarSiguiente(nuevo);
+			tamanoCola++;
+			finCola=nuevo;
+		}
 		else
 		{
 			finCola.cambiarSiguiente(nuevo);
@@ -33,25 +40,31 @@ public class Cola<T> implements ICola<T>{
 			tamanoCola++;
 		}
 	}
-	public Node<T> dequeue(){
+	public T dequeue()
+	{
 		if(!estavacia())
 		{
 			Node<T> valorEliminado = inicioCola;
 			if(inicioCola.darSiguiente()!=null)
+			{
 				inicioCola = inicioCola.darSiguiente();
+				tamanoCola--;
+			}
 			else
+			{
 				inicioCola= null;
-			return valorEliminado;
+				tamanoCola--;
+			}
+			return valorEliminado.darTvalor();
 		}
-		else{
+		else
+		{
 			return null;
 		}
 	}
+	
 	public int dartamanoCola(){
 		return tamanoCola;
-	}
-	public Node<T> darPrimerElemento(){
-		return inicioCola;
 	}
 
 }

@@ -24,16 +24,12 @@ public class Pila<T> implements IPila<T>
 		return vacia;
 	}
 	
-	public Node<T> darPrimerElemento()
-	{
-		return primerElemento;
-	}
 	
 	public void push(T pElemento)
 	{
 		Node<T> nuevo= new Node<>();
 		nuevo.cambiarDato(pElemento);
-		if (vacia=true)
+		if (vacia==true)
 		{
 			primerElemento=nuevo;
 			ultimoElemento=nuevo;
@@ -48,10 +44,10 @@ public class Pila<T> implements IPila<T>
 		}
 	}
 	
-	public Node<T> pop()
+	public T pop()
 	{
 		Node<T> retorno=null;
-		if(vacia=false)
+		if(vacia==false)
 		{
 			if(ultimoElemento==primerElemento)
 			{
@@ -69,7 +65,7 @@ public class Pila<T> implements IPila<T>
 			}
 		}
 		
-		return retorno;
+		return retorno.darTvalor();
 	}
 	
 	
