@@ -139,6 +139,38 @@ public class Modelo {
 	public Node<Multa> darPrimero(){
 		return cola.darPrimerElemento();
 	}
+	public Cola<Multa> consultaDatos()
+	{
+		Node<Multa> actual = cola.darPrimerElemento();
+		ArrayList<Node<Multa>> nueva = new ArrayList<>();
+		int i =0;
+		while (i<numeroNodos)
+		{
+			if(nueva.get(0)==null)
+				nueva.add(actual);
+			else{
+				if(!(actual.darTvalor().darInfraccion().equals(nueva.get(0).darTvalor().darInfraccion()))){
+					ArrayList<Node<Multa>> nueva2 = new ArrayList<>();
+					nueva2.add(actual);
+				}
+
+			}
+			actual = actual.darSiguiente();
+		}
+		
+	}
+	public Cola<Multa> procesarElementosPila(String pInfraccion)
+	{
+		int i  =0;
+		Cola<Multa> respuesta = new Cola<Multa>();
+		while(i<pila.darTamanoPila())
+		{
+			Node<Multa> actual = pila.pop();
+			if(actual.darTvalor().darInfraccion().equals(pInfraccion))
+				respuesta.enqueue(actual.darTvalor());
+		}
+		return respuesta;
+	}
 	/**
 	 * Requerimiento buscar dato
 	 * @param dato Dato a buscar

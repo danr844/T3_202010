@@ -1,7 +1,8 @@
 package model.data_structures;
 
 
-public class Cola<T> implements ICola<T>{
+public class Cola<T> implements ICola<T>
+{
 	private Node<T> inicioCola;
 	private Node<T> finCola;
 	private int tamanoCola;
@@ -9,6 +10,8 @@ public class Cola<T> implements ICola<T>{
 		inicioCola = null;
 		finCola = null;
 	}
+	
+	
 	public boolean estavacia(){
 		if(inicioCola==null)
 			return true;
@@ -16,6 +19,8 @@ public class Cola<T> implements ICola<T>{
 			return false;
 		}
 	}
+	
+	
 	public void enqueue(T multa)
 	{
 		Node<T> nuevo = new Node<>();
@@ -33,24 +38,36 @@ public class Cola<T> implements ICola<T>{
 			tamanoCola++;
 		}
 	}
-	public Node<T> dequeue(){
+	public Node<T> dequeue()
+	{
 		if(!estavacia())
 		{
 			Node<T> valorEliminado = inicioCola;
 			if(inicioCola.darSiguiente()!=null)
+			{
 				inicioCola = inicioCola.darSiguiente();
-			else
+				tamanoCola--;
+			}
+			else{
 				inicioCola= null;
+				tamanoCola = 0;
+			}
 			return valorEliminado;
 		}
 		else{
 			return null;
 		}
 	}
-	public int dartamanoCola(){
+	
+	
+	public int dartamanoCola()
+	{
 		return tamanoCola;
 	}
-	public Node<T> darPrimerElemento(){
+	
+	
+	public Node<T> darPrimerElemento()
+	{
 		return inicioCola;
 	}
 
