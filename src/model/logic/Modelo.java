@@ -74,14 +74,6 @@ public class Modelo {
 		pila.push(dato);
 	}
 	
-	public Node<Multa> darPrimerNodoCola(){
-		return cola.darPrimerElemento();
-	}
-	
-	public Node<Multa> darPrimerNodoPila(){
-		return pila.darPrimerElemento();
-	}
-	
 	public void eliminarEnCola()
 	{
 		cola.dequeue();
@@ -188,26 +180,6 @@ public class Modelo {
 		return retorno;
 	}	
 
-	public Cola<Multa> consultaDatos()
-	{
-		Node<Multa> actual = cola.darPrimerElemento();
-		ArrayList<Node<Multa>> nueva = new ArrayList<>();
-		int i =0;
-		while (i<numeroNodos)
-		{
-			if(nueva.get(0)==null)
-				nueva.add(actual);
-			else{
-				if(!(actual.darTvalor().darInfraccion().equals(nueva.get(0).darTvalor().darInfraccion()))){
-					ArrayList<Node<Multa>> nueva2 = new ArrayList<>();
-					nueva2.add(actual);
-				}
-
-			}
-			actual = actual.darSiguiente();
-		}
-		
-	}
 	public Cola<Multa> procesarElementosPila(String pInfraccion)
 	{
 		int i  =0;
