@@ -41,7 +41,9 @@ public class Modelo {
 	public Modelo()
 	{
 		primero = null;
-		numeroNodos=cola.dartamanoCola();
+		cola = new Cola<Multa>();
+		pila=new Pila<Multa>();
+
 	}
 
 
@@ -74,14 +76,14 @@ public class Modelo {
 		pila.push(dato);
 	}
 	
-	public void eliminarEnCola()
+	public Multa eliminarEnCola()
 	{
-		cola.dequeue();
+		return cola.dequeue();
 	}
 	
-	public void eliminarEnPila()
+	public Multa eliminarEnPila()
 	{
-		pila.pop();
+		return pila.pop();
 	}
 	
 	public List<Double> cargarInfo(){
@@ -180,17 +182,34 @@ public class Modelo {
 		return retorno;
 	}	
 
-	public Cola<Multa> procesarElementosPila(String pInfraccion)
+	public Cola<Multa> procesarElementosPila(String pInfraccion, int numeroComparendos)
 	{
-		int i  =0;
+		int k =0;
 		Cola<Multa> respuesta = new Cola<Multa>();
-		while(i<pila.darTamanoPila())
+		Multa actual = pila.darPrimerElemento().darTvalor();
+
+		while(actual!=null&&k<numeroComparendos)
 		{
-			Node<Multa> actual = pila.pop();
-			if(actual.darTvalor().darInfraccion().equals(pInfraccion))
-				respuesta.enqueue(actual.darTvalor());
+			actual = pila.pop();
+			if(actual.darInfraccion().equals(pInfraccion)){
+				respuesta.enqueue(actual);
+				k++;
+			}
+			
 		}
 		return respuesta;
+	}
+	public Node<Multa> darPrimerElementoCola(){
+		return cola.darPrimerElemento();
+	}
+	public Node<Multa> darPrimerElementoPila(){
+		return pila.darPrimerElemento();
+	}
+	public Cola<Multa> darCola(){
+		return cola;
+	}
+	public Pila<Multa> darPila(){
+		return pila;
 	}
 
 	/**

@@ -67,6 +67,12 @@ public class Pila<T> implements IPila<T>
 		
 		return retorno.darTvalor();
 	}
+	public Node<T> darPrimerElemento(){
+		return primerElemento;
+	}
+	public Node<T> darUltimoElemento(){
+		return primerElemento;
+	}
 	
 	
 }
