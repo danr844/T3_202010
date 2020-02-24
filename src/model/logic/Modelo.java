@@ -16,7 +16,7 @@ import com.google.gson.stream.JsonReader;
 
 import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
-import model.data_structures.Multa;
+import model.data_structures.Comparendo;
 import model.data_structures.Node;
 
 

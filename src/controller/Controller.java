@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.sun.glass.events.ViewEvent;
 
-import model.data_structures.Multa;
+import model.data_structures.Comparendo;
 import model.data_structures.Node;
 import model.logic.Modelo;
 import view.View;
