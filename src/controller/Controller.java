@@ -44,7 +44,7 @@ public class Controller {
 				modelo.cargarInfo();
 				if(modelo.darPrimero()!=null)
 				{
-					Node<Multa> encontrado = modelo.darPrimero();
+					Node<Comparendo> encontrado = modelo.darPrimero();
 
 					view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
 					encontrado=modelo.darUltimoNodo();
@@ -59,7 +59,7 @@ public class Controller {
 				view.printMessage("------------------------------------------------------------------------\n Ingrese el id buscado: \n------------------------------------------------------------------------");
 				int idBuscada = lector.nextInt();
 
-				Node<Multa> encontrado=modelo.buscar(idBuscada);
+				Node<Comparendo> encontrado=modelo.buscar(idBuscada);
 				view.printMessage(""+ encontrado.darTvalor().darID()+","+encontrado.darTvalor().darFecha()+","+ encontrado.darTvalor().darClaseVehiculo()+","+encontrado.darTvalor().darTipoServicio()+","+encontrado.darTvalor().darLocalidad()+"\n---------------------------");
 
 				break;

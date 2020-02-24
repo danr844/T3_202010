@@ -28,10 +28,10 @@ public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private ArregloDinamico<Integer> datos;
-	private Node<Multa> primero;
+	private ArregloDinamico<Comparendo> datos;
+	private Node<Comparendo> primero;
 	private int numeroNodos;
-	private Node<Multa> ultimo;
+	private Node<Comparendo> ultimo;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -46,7 +46,7 @@ public class Modelo {
 	 */
 	public Modelo(int capacidad)
 	{
-		datos = new ArregloDinamico<Integer>(capacidad);
+		datos = new ArregloDinamico<Comparendo>(capacidad);
 	}
 
 	/**
@@ -63,29 +63,29 @@ public class Modelo {
 	 * @param <T>
 	 * @param dato
 	 */
-	public <T> void agregar(Multa dato)
-	{	
-		if(primero== null){
-			primero  = new Node <Multa>();
-			primero.cambiarDato(dato);
-			numeroNodos++;
-			ultimo = primero;
-		}
-		else{
-			Node<Multa> nodo= new Node<Multa>();
-			nodo.cambiarDato(dato);
-			ultimo.cambiarSiguiente(nodo);
-			ultimo = nodo;
-			numeroNodos++;
-		
-		}
-			
-	}
+//	public <T> void agregar(Comparendo dato)
+//	{	
+//		if(primero== null){
+//			primero  = new Node <Comparendo>();
+//			primero.cambiarDato(dato);
+//			numeroNodos++;
+//			ultimo = primero;
+//		}
+//		else{
+//			Node<Comparendo> nodo= new Node<Comparendo>();
+//			nodo.cambiarDato(dato);
+//			ultimo.cambiarSiguiente(nodo);
+//			ultimo = nodo;
+//			numeroNodos++;
+//		
+//		}
+//			
+//	}
 	public int darNumeroNodos(){
 		return numeroNodos;
 	}
 	
-	public Node<Multa> darUltimoNodo(){
+	public Node<Comparendo> darUltimoNodo(){
 		return ultimo;
 	}
 	
@@ -115,8 +115,8 @@ public class Modelo {
 				String Localidad = e.getAsJsonObject().get("properties").getAsJsonObject().get("LOCALIDAD").getAsString();
 
 				
-				Multa user = new Multa(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
-				agregar(user);
+				Comparendo user = new Comparendo(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
+				datos.agregar(user);
 				if(e.getAsJsonObject().has("geometry") && !e.getAsJsonObject().get("geometry").isJsonNull()) {
 					for(JsonElement geoElem: e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()) {
 						geo.add(geoElem.getAsDouble());
@@ -133,7 +133,7 @@ public class Modelo {
 		}
 		return geo;
 	}
-	public Node<Multa> darPrimero(){
+	public Node<Comparendo> darPrimero(){
 		return primero;
 	}
 	/**
@@ -141,9 +141,9 @@ public class Modelo {
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	public Node<Multa> buscar(int dato)
+	public Node<Comparendo> buscar(int dato)
 	{
-		Node <Multa> actual=primero;
+		Node <Comparendo> actual=primero;
 		while(actual!=null)
 		{
 		if(actual.darTvalor().darID()==dato)
@@ -159,11 +159,11 @@ public class Modelo {
 	 * @param object Dato a eliminar
 	 * @return dato eliminado
 	 */
-	public Integer eliminar(Integer object)
+	public Comparendo eliminar(Comparendo object)
 	{
 		return  datos.eliminar(object);
 	}
-	public IArregloDinamico<Integer> dardatos(){
+	public IArregloDinamico<Comparendo> dardatos(){
 		return datos;
 	}
 
