@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.sun.glass.events.ViewEvent;
 
 import model.data_structures.Cola;
-import model.data_structures.Multa;
+import model.data_structures.Comparendo;
 import model.data_structures.Node;
 import model.logic.Modelo;
 import view.View;
@@ -45,8 +45,8 @@ public class Controller {
 					modelo.cargarInfo();
 				if(modelo.darPrimerElementoCola()!=null&&modelo.darPrimerElementoPila()!=null)
 				{
-					Node<Multa> encontradoPila = modelo.darPrimerElementoPila();
-					Node<Multa> encontradoCola = modelo.darPrimerElementoCola();
+					Node<Comparendo> encontradoPila = modelo.darPrimerElementoPila();
+					Node<Comparendo> encontradoCola = modelo.darPrimerElementoCola();
 
 					view.printMessage("Primer comparendo en la Cola:"+ encontradoCola.darTvalor().darID()+","+encontradoCola.darTvalor().darFecha()+","+ encontradoCola.darTvalor().darClaseVehiculo()+","+encontradoCola.darTvalor().darTipoServicio()+","+encontradoCola.darTvalor().darLocalidad()+"\n---------------------------");
 					view.printMessage("Primer comparendo en la Pila: "+ encontradoPila.darTvalor().darID()+","+encontradoPila.darTvalor().darFecha()+","+ encontradoPila.darTvalor().darClaseVehiculo()+","+encontradoPila.darTvalor().darTipoServicio()+","+encontradoPila.darTvalor().darLocalidad()+"\n---------------------------");
@@ -56,8 +56,8 @@ public class Controller {
 				}
 				break;
 			case 2: 
-				Cola<Multa>cola1 = modelo.consultaInfraccion();
-				Node<Multa> actual1 = cola1.darPrimerElemento();
+				Cola<Comparendo>cola1 = modelo.consultaInfraccion();
+				Node<Comparendo> actual1 = cola1.darPrimerElemento();
 				while(actual1!=null)
 				{
 					view.printMessage(actual1.darTvalor().darInfraccion()+ " "+actual1.darTvalor().darID()+ " "+ actual1.darTvalor().darFecha()+ " "+ actual1.darTvalor().darClaseVehiculo()+ " "+ actual1.darTvalor().darTipoServicio() + " "+ actual1.darTvalor().darLocalidad() +"\n---------------------------");
@@ -74,8 +74,8 @@ public class Controller {
 				String idBuscada = lector.next();
 				view.printMessage("------------------------------------------------------------------------\n Ingrese el numero de comparendos con la infraccion dada que desea conocer: \n------------------------------------------------------------------------");
 				int numComparendos = lector.nextInt();
-				Cola<Multa>cola = modelo.procesarElementosPila(idBuscada, numComparendos);
-				Node<Multa> actual = cola.darPrimerElemento();
+				Cola<Comparendo>cola = modelo.procesarElementosPila(idBuscada, numComparendos);
+				Node<Comparendo> actual = cola.darPrimerElemento();
 				while(actual!=null)
 				{
 					view.printMessage(actual.darTvalor().darInfraccion()+ " "+actual.darTvalor().darID()+ " "+ actual.darTvalor().darFecha()+ " "+ actual.darTvalor().darClaseVehiculo()+ " "+ actual.darTvalor().darTipoServicio() + " "+ actual.darTvalor().darLocalidad() +"\n---------------------------");

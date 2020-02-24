@@ -18,7 +18,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 import model.data_structures.ArregloDinamico;
 import model.data_structures.Cola;
 import model.data_structures.IArregloDinamico;
-import model.data_structures.Multa;
+import model.data_structures.Comparendo;
 import model.data_structures.Pila;
 import model.data_structures.Node;
 
@@ -31,18 +31,18 @@ public class Modelo {
 	/**
 	 * Atributos del modelo del mundo
 	 */
-	private Node<Multa> primero;
+	private Node<Comparendo> primero;
 	private int numeroNodos;
-	private Cola<Multa> cola;
-	private Pila<Multa> pila;
+	private Cola<Comparendo> cola;
+	private Pila<Comparendo> pila;
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
 	public Modelo()
 	{
 		primero = null;
-		cola = new Cola<Multa>();
-		pila=new Pila<Multa>();
+		cola = new Cola<Comparendo>();
+		pila=new Pila<Comparendo>();
 
 	}
 
@@ -66,22 +66,22 @@ public class Modelo {
 	 * @param <T>
 	 * @param dato
 	 */
-	public <T> void agregarALaCola(Multa dato)
+	public <T> void agregarALaCola(Comparendo dato)
 	{	
 		cola.enqueue(dato);	
 	}
 	
-	public <T> void agregarALaPila(Multa dato)
+	public <T> void agregarALaPila(Comparendo dato)
 	{
 		pila.push(dato);
 	}
 	
-	public Multa eliminarEnCola()
+	public Comparendo eliminarEnCola()
 	{
 		return cola.dequeue();
 	}
 	
-	public Multa eliminarEnPila()
+	public Comparendo eliminarEnPila()
 	{
 		return pila.pop();
 	}
@@ -112,7 +112,7 @@ public class Modelo {
 				String Localidad = e.getAsJsonObject().get("properties").getAsJsonObject().get("LOCALIDAD").getAsString();
 
 				
-				Multa user = new Multa(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
+				Comparendo user = new Comparendo(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
 				agregarALaCola(user);
 				agregarALaPila(user);
 				if(e.getAsJsonObject().has("geometry") && !e.getAsJsonObject().get("geometry").isJsonNull()) {
@@ -132,23 +132,23 @@ public class Modelo {
 		return geo;
 	}
 
-	public Cola<Multa> consultaInfraccion()
+	public Cola<Comparendo> consultaInfraccion()
 	{
-		 Cola<Multa> retorno= new Cola<Multa>();
-		 Cola<Multa> deComparar= new Cola<Multa>();
+		 Cola<Comparendo> retorno= new Cola<Comparendo>();
+		 Cola<Comparendo> deComparar= new Cola<Comparendo>();
 		 String leyendo="";
 		 int i=0;
 		 while(i<numeroNodos)
 		 {
 			 if(deComparar.estavacia())
 			 {
-				 Multa primero=cola.dequeue();
+				 Comparendo primero=cola.dequeue();
 				 deComparar.enqueue(primero);
 				 leyendo=primero.darInfraccion();
 			 }
 			 else
 			 {
-				 Multa primero=cola.dequeue();
+				 Comparendo primero=cola.dequeue();
 				 if(leyendo.equals(primero.darInfraccion()))
 					 deComparar.enqueue(primero); 
 				 
@@ -157,7 +157,7 @@ public class Modelo {
 					 if(deComparar.dartamanoCola()>retorno.dartamanoCola())
 						 retorno=deComparar;
 					 
-					 deComparar=new Cola<Multa>();
+					 deComparar=new Cola<Comparendo>();
 					 deComparar.enqueue(primero);
 					 leyendo=primero.darInfraccion();
 				 }
@@ -182,11 +182,11 @@ public class Modelo {
 		return retorno;
 	}	
 
-	public Cola<Multa> procesarElementosPila(String pInfraccion, int numeroComparendos)
+	public Cola<Comparendo> procesarElementosPila(String pInfraccion, int numeroComparendos)
 	{
 		int k =0;
-		Cola<Multa> respuesta = new Cola<Multa>();
-		Multa actual = pila.darPrimerElemento().darTvalor();
+		Cola<Comparendo> respuesta = new Cola<Comparendo>();
+		Comparendo actual = pila.darPrimerElemento().darTvalor();
 
 		while(actual!=null&&k<numeroComparendos)
 		{
@@ -199,16 +199,16 @@ public class Modelo {
 		}
 		return respuesta;
 	}
-	public Node<Multa> darPrimerElementoCola(){
+	public Node<Comparendo> darPrimerElementoCola(){
 		return cola.darPrimerElemento();
 	}
-	public Node<Multa> darPrimerElementoPila(){
+	public Node<Comparendo> darPrimerElementoPila(){
 		return pila.darPrimerElemento();
 	}
-	public Cola<Multa> darCola(){
+	public Cola<Comparendo> darCola(){
 		return cola;
 	}
-	public Pila<Multa> darPila(){
+	public Pila<Comparendo> darPila(){
 		return pila;
 	}
 
