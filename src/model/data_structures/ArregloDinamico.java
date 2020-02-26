@@ -84,6 +84,9 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		elementos[i] = elementos[j]; 
 		elementos[j] = t; 
 	}
+	public void cambiarElementoEnPosicion(int i, T k){
+		elementos[i] = k;
+	}
 	public T eliminar(T dato) {
 		// TODO implementar
 		// Recomendacion: Usar el criterio de comparacion natural (metodo compareTo()) definido en Strings.

@@ -18,6 +18,7 @@ import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.Node;
+import stdrando
 
 
 /**
@@ -48,19 +49,20 @@ public class Modelo {
 	{
 		datos = new ArregloDinamico<Comparendo>(capacidad);
 	}
-	private static boolean   less(Comparable<Comparendo> a, Comparable<Comparendo> a2)  
+	public static  boolean   less(Comparendo a, Comparendo a2)  
 	{  
 		return a.compareTo((Comparendo) a2) < 0;  
 	}   
 
-	public Comparable<Comparendo>[] copiarComparendos(){
-		Comparable[] arreglonuevo = new Comparable[darTamano()];
+	public ArregloDinamico<Comparendo> copiarComparendos(){
+		ArregloDinamico<Comparendo> arreglonuevo = new ArregloDinamico<>(datos.darTamano());
 		for(int i = 0; i<datos.darTamano(); i++)
 		{
-			arreglonuevo[i]=datos.darElemento(i);
+			arreglonuevo.agregar(datos.darElemento(i));
 		}
 		return arreglonuevo;
 	}
+
 
 
 	/**
@@ -183,11 +185,10 @@ public class Modelo {
 	public void agregarArregloDinamico(Comparendo comparendo){
 		datos.agregar(comparendo);
 	}
-	public void ordenarShellSort(Comparable<Comparendo>[] datos)
+	public void ordenarShellSort(ArregloDinamico<Comparendo> datos)
 	{
-		Comparable<Comparendo>[]a = datos;
 		// Sort a[] into increasing order.   
-		int N = a.length;  
+		int N = datos.darTamano();  
 		int h = 1;     
 		while (h < N/3) h = 3*h + 1;
 		// 1, 4, 13, 40, 121, 364, 1093, ...   
@@ -195,16 +196,81 @@ public class Modelo {
 		{  // h-sort the array.  
 			for (int i = h; i < N; i++) 
 			{  // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]... .  
-				for (int j = i; j >= h && less(a[j],a[j-h]); j -= h)
+				for (int j = i; j >= h && less(datos.darElemento(j),datos.darElemento(j-h)); j -= h)
 				{
-					Comparable<Comparendo> t = a[i];
-					a[i] = a[j];
-					a[j] = t; 	
+					datos.exch(i, j);	
 				}         
 				h = h/3;    
 			} 
 		} 
 	}
+	public  void ordenarPorMergeSort(ArregloDinamico<Comparendo> a, int lo, int mid, int hi) 
+	{  // Merge a[lo..mid] with a[mid+1..hi].
+		ArregloDinamico<Comparendo> aux = new ArregloDinamico<>(a.darTamano());
+		int i = lo;
+		int j = mid+1;  
+		for (int k = lo; k <= hi; k++){
+			// Copy a[lo..hi] to aux[lo..hi].     
+			aux.agregar(a.darElemento(i));  
+		}
+		for (int k = lo; k <= hi; k++){
+			// Merge back to a[lo..hi].   
+			if      (i > mid)  
+				a.cambiarElementoEnPosicion(k, aux.darElemento(j++));
+
+			else if (j > hi )  
+
+				a.cambiarElementoEnPosicion(k, aux.darElemento(i++));
+
+			else if (less(aux.darElemento(j), aux.darElemento(i))) 
+
+				a.cambiarElementoEnPosicion(k, aux.darElemento(j++));
+			else          
+				a.cambiarElementoEnPosicion(k, aux.darElemento(i++));
+		}
+	}
+	public static void sort(ArregloDinamico<Comparendo> a) 
+	{        
+		StdRandom.shuffle(a);   
+	// Eliminate dependence on input.  
+	sort(a, 0, a.darTamano() - 1);  
+	} 
+	private static void sort(ArregloDinamico<Comparendo> a, int lo, int hi)
+	{      
+		if (hi <= lo) return;   
+		int j = partition(a, lo, hi); 
+		// Partition (see page 291).   
+		sort(a, lo, j-1);          
+		// Sort left part a[lo .. j-1].   
+		sort(a, j+1, hi);          
+		// Sort right part a[j+1 .. hi]. 
+	}
+
+	private static int partition(ArregloDinamico<Comparendo> a, int lo, int hi)
+	{  // Partition into a[lo..i-1], a[i], a[i+1..hi].   
+		int i = lo, j = hi+1;       
+		// left and right scan indices  
+		Comparendo v = a.darElemento(lo);        
+		// partitioning item   while (true)  
+		{  // Scan right, scan left, check for scan complete, and exchange.  
+			while(true){
+				while (less(a.darElemento(++i), v))
+					if (i == hi)
+						break;   
+				while (less(v, a.darElemento(--j))) 
+					if (j == lo)
+						break;   
+				if (i >= j)
+					break;     
+				a.exch( i, j); 
+			}
+		}  
+		a.exch( lo, j);    
+		// Put v = a[j] into position   
+		return j;             // with a[lo..j-1] <= a[j] <= a[j+1..hi].
+	}
+
+
 
 
 
