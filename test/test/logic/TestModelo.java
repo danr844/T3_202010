@@ -2,7 +2,7 @@ package test.logic;
 
 import static org.junit.Assert.*;
 
-import model.data_structures.Multa;
+import model.data_structures.Comparendo;
 import model.data_structures.Node;
 import model.logic.Modelo;
 
@@ -13,28 +13,28 @@ public class TestModelo {
 	
 	private Modelo modelo;
 	private static int CAPACIDAD=100;
-	private Multa nueva;
-	private Node<Multa> nodo;
-	private Multa nueva2;
+	private Comparendo nueva;
+	private Node<Comparendo> nodo;
+	private Comparendo nueva2;
 
 
 	
 	@Before
 	public void setUp1() {
 		modelo= new Modelo();
-		nueva = new Multa(1234, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
-		nueva2 = new Multa(0000, "0000", "0009", "0008", "0007", "0006", "0005", "0004");
+		nueva = new Comparendo(1234, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
+		nueva2 = new Comparendo(0000, "0000", "0009", "0008", "0007", "0006", "0005", "0004");
 		
-		nodo=new Node<Multa>();
-		Node<Multa> nodo2 =new Node<Multa>();
+		nodo=new Node<Comparendo>();
+		Node<Comparendo> nodo2 =new Node<Comparendo>();
 
 		nodo.cambiarDato(nueva);
 		nodo2.cambiarDato(nueva2);
 		
 		nodo.cambiarSiguiente(nodo2);
 		
-		modelo.agregar(nueva);
-		modelo.agregar(nueva2);
+		modelo.agregarArregloDinamico(nueva);
+		modelo.agregarArregloDinamico(nueva2);
 		
 	}
 
@@ -62,8 +62,8 @@ public class TestModelo {
 			// TODO Completar la prueba
 		setUp1();
 		assertEquals("No tiene el tamaño esperado", 2, modelo.darNumeroNodos());
-		nueva = new Multa(1, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
-		modelo.agregar(nueva);
+		nueva = new Comparendo(1, "hola1", "hola2", "hola3", "hola4", "hola5", "hola", "hola7");
+		modelo.agregarArregloDinamico(nueva);
 		assertEquals("No tiene el tamaño esperado", 3, modelo.darNumeroNodos());
 
 			

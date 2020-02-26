@@ -60,6 +60,9 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 		// TODO implementar
 		return elementos[i];
 	}
+	public T[] darElementos(){
+		return elementos;
+	}
 
 	public T buscar(T dato) {
 		// TODO implementar
@@ -74,6 +77,12 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 			}
 		}
 		return null;
+	}
+	public void exch( int i, int j)  
+	{  
+		T t = elementos[i];
+		elementos[i] = elementos[j]; 
+		elementos[j] = t; 
 	}
 	public T eliminar(T dato) {
 		// TODO implementar
