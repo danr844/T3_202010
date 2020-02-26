@@ -18,8 +18,7 @@ import model.data_structures.ArregloDinamico;
 import model.data_structures.IArregloDinamico;
 import model.data_structures.Comparendo;
 import model.data_structures.Node;
-import stdrando
-
+import model.data_structures.Ordenamientos; 
 
 /**
  * Definicion del modelo del mundo
@@ -33,6 +32,8 @@ public class Modelo {
 	private Node<Comparendo> primero;
 	private int numeroNodos;
 	private Node<Comparendo> ultimo;
+	private Ordenamientos ordenar;
+
 	/**
 	 * Constructor del modelo del mundo con capacidad predefinida
 	 */
@@ -48,62 +49,13 @@ public class Modelo {
 	public Modelo(int capacidad)
 	{
 		datos = new ArregloDinamico<Comparendo>(capacidad);
+
 	}
 	public static  boolean   less(Comparendo a, Comparendo a2)  
 	{  
-		return a.compareTo((Comparendo) a2) < 0;  
+		return Ordenamientos.less(a, a2); 
 	}   
 
-	public ArregloDinamico<Comparendo> copiarComparendos(){
-		ArregloDinamico<Comparendo> arreglonuevo = new ArregloDinamico<>(datos.darTamano());
-		for(int i = 0; i<datos.darTamano(); i++)
-		{
-			arreglonuevo.agregar(datos.darElemento(i));
-		}
-		return arreglonuevo;
-	}
-
-
-
-	/**
-	 * Servicio de consulta de numero de elementos presentes en el modelo 
-	 * @return numero de elementos presentes en el modelo
-	 */
-	public int darTamano()
-	{
-		return datos.darTamano();
-	}
-
-	/**
-	 * Requerimiento de agregar dato
-	 * @param <T>
-	 * @param dato
-	 */
-	//	public <T> void agregar(Comparendo dato)
-	//	{	
-	//		if(primero== null){
-	//			primero  = new Node <Comparendo>();
-	//			primero.cambiarDato(dato);
-	//			numeroNodos++;
-	//			ultimo = primero;
-	//		}
-	//		else{
-	//			Node<Comparendo> nodo= new Node<Comparendo>();
-	//			nodo.cambiarDato(dato);
-	//			ultimo.cambiarSiguiente(nodo);
-	//			ultimo = nodo;
-	//			numeroNodos++;
-	//		
-	//		}
-	//			
-	//	}
-	public int darNumeroNodos(){
-		return numeroNodos;
-	}
-
-	public Node<Comparendo> darUltimoNodo(){
-		return ultimo;
-	}
 
 	public List<Double> cargarInfo(){
 		List<Double> geo = new ArrayList<Double>();
@@ -149,26 +101,6 @@ public class Modelo {
 		}
 		return geo;
 	}
-	public Node<Comparendo> darPrimero(){
-		return primero;
-	}
-	/**
-	 * Requerimiento buscar dato
-	 * @param dato Dato a buscar
-	 * @return dato encontrado
-	 */
-	public Node<Comparendo> buscar(int dato)
-	{
-		Node <Comparendo> actual=primero;
-		while(actual!=null)
-		{
-			if(actual.darTvalor().darID()==dato)
-				return actual;
-			else actual=actual.darSiguiente();
-
-		}
-		return null;
-	}
 
 	/**
 	 * Requerimiento eliminar dato
@@ -188,87 +120,88 @@ public class Modelo {
 	public void ordenarShellSort(ArregloDinamico<Comparendo> datos)
 	{
 		// Sort a[] into increasing order.   
-		int N = datos.darTamano();  
-		int h = 1;     
-		while (h < N/3) h = 3*h + 1;
-		// 1, 4, 13, 40, 121, 364, 1093, ...   
-		while (h >= 1)      
-		{  // h-sort the array.  
-			for (int i = h; i < N; i++) 
-			{  // Insert a[i] among a[i-h], a[i-2*h], a[i-3*h]... .  
-				for (int j = i; j >= h && less(datos.darElemento(j),datos.darElemento(j-h)); j -= h)
-				{
-					datos.exch(i, j);	
-				}         
-				h = h/3;    
-			} 
-		} 
+		Ordenamientos.ShellSort(datos.darElementos());
 	}
 	public  void ordenarPorMergeSort(ArregloDinamico<Comparendo> a, int lo, int mid, int hi) 
 	{  // Merge a[lo..mid] with a[mid+1..hi].
-		ArregloDinamico<Comparendo> aux = new ArregloDinamico<>(a.darTamano());
-		int i = lo;
-		int j = mid+1;  
-		for (int k = lo; k <= hi; k++){
-			// Copy a[lo..hi] to aux[lo..hi].     
-			aux.agregar(a.darElemento(i));  
+		Ordenamientos.merge(a.darElementos(), lo, mid, hi);
+
+	}
+	public void ordenarPorQuick(ArregloDinamico<Comparendo> datos)
+	{
+		Ordenamientos.Quicksort(datos.darElementos());
+	}
+	public ArregloDinamico<Comparendo> copiarComparendos(){
+		ArregloDinamico<Comparendo> arreglonuevo = new ArregloDinamico<>(datos.darTamano());
+		for(int i = 0; i<datos.darTamano(); i++)
+		{
+			arreglonuevo.agregar(datos.darElemento(i));
 		}
-		for (int k = lo; k <= hi; k++){
-			// Merge back to a[lo..hi].   
-			if      (i > mid)  
-				a.cambiarElementoEnPosicion(k, aux.darElemento(j++));
-
-			else if (j > hi )  
-
-				a.cambiarElementoEnPosicion(k, aux.darElemento(i++));
-
-			else if (less(aux.darElemento(j), aux.darElemento(i))) 
-
-				a.cambiarElementoEnPosicion(k, aux.darElemento(j++));
-			else          
-				a.cambiarElementoEnPosicion(k, aux.darElemento(i++));
-		}
-	}
-	public static void sort(ArregloDinamico<Comparendo> a) 
-	{        
-		StdRandom.shuffle(a);   
-	// Eliminate dependence on input.  
-	sort(a, 0, a.darTamano() - 1);  
-	} 
-	private static void sort(ArregloDinamico<Comparendo> a, int lo, int hi)
-	{      
-		if (hi <= lo) return;   
-		int j = partition(a, lo, hi); 
-		// Partition (see page 291).   
-		sort(a, lo, j-1);          
-		// Sort left part a[lo .. j-1].   
-		sort(a, j+1, hi);          
-		// Sort right part a[j+1 .. hi]. 
+		return arreglonuevo;
 	}
 
-	private static int partition(ArregloDinamico<Comparendo> a, int lo, int hi)
-	{  // Partition into a[lo..i-1], a[i], a[i+1..hi].   
-		int i = lo, j = hi+1;       
-		// left and right scan indices  
-		Comparendo v = a.darElemento(lo);        
-		// partitioning item   while (true)  
-		{  // Scan right, scan left, check for scan complete, and exchange.  
-			while(true){
-				while (less(a.darElemento(++i), v))
-					if (i == hi)
-						break;   
-				while (less(v, a.darElemento(--j))) 
-					if (j == lo)
-						break;   
-				if (i >= j)
-					break;     
-				a.exch( i, j); 
-			}
-		}  
-		a.exch( lo, j);    
-		// Put v = a[j] into position   
-		return j;             // with a[lo..j-1] <= a[j] <= a[j+1..hi].
+
+
+	/**
+	 * Servicio de consulta de numero de elementos presentes en el modelo 
+	 * @return numero de elementos presentes en el modelo
+	 */
+	public int darTamano()
+	{
+		return datos.darTamano();
 	}
+
+
+	public int darNumeroNodos(){
+		return numeroNodos;
+	}
+
+	public Node<Comparendo> darUltimoNodo(){
+		return ultimo;
+	}
+	/**
+	 * Requerimiento de agregar dato
+	 * @param <T>
+	 * @param dato
+	 */
+	//	public <T> void agregar(Comparendo dato)
+	//	{	
+	//		if(primero== null){
+	//			primero  = new Node <Comparendo>();
+	//			primero.cambiarDato(dato);
+	//			numeroNodos++;
+	//			ultimo = primero;
+	//		}
+	//		else{
+	//			Node<Comparendo> nodo= new Node<Comparendo>();
+	//			nodo.cambiarDato(dato);
+	//			ultimo.cambiarSiguiente(nodo);
+	//			ultimo = nodo;
+	//			numeroNodos++;
+	//		
+	//		}
+	//			
+	//	}
+	//	public Node<Comparendo> darPrimero(){
+	//	return primero;
+	//}
+	/**
+	 * Requerimiento buscar dato
+	 * @param dato Dato a buscar
+	 * @return dato encontrado
+	 */
+	//public Node<Comparendo> buscar(int dato)
+	//{
+	//	Node <Comparendo> actual=primero;
+	//	while(actual!=null)
+	//	{
+	//		if(actual.darTvalor().darID()==dato)
+	//			return actual;
+	//		else actual=actual.darSiguiente();
+	//
+	//	}
+	//	return null;
+	//}
 
 
 
