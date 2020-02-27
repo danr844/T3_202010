@@ -36,17 +36,18 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	{
 		if ( tamanoAct == tamanoMax )
 		{  // caso de arreglo lleno (aumentar tamaNo)
-			tamanoMax =  tamanoMax*(5/4);
-			Object [ ] copia = elementos;
-			elementos = (T[]) new Comparable[tamanoMax];
+			tamanoMax = 2 * tamanoMax;
+			T [ ] copia = elementos;
+			elementos =(T []) new Comparable[tamanoMax];
 			for ( int i = 0; i < tamanoAct; i++)
 			{
-				elementos[i] = (T) copia[i];
-			} 
-			System.out.println("Arreglo lleno: " + tamanoAct + " - Arreglo duplicado: " + tamanoMax);
+				elementos[i] = copia[i];
+			}                
 		}	
-		elementos[tamanoAct] = (T) dato;
+		elementos[tamanoAct] = dato;
 		tamanoAct++;
+		
+
 	}
 	public int darCapacidad() {
 		return tamanoMax;

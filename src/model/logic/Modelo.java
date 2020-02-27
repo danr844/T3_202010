@@ -57,7 +57,7 @@ public class Modelo
 
 			Gson gson = new Gson();
 
-			String path = "./data/Comparendos_DEI_2018_Bogotá_D.C.geojson";
+			String path = "./data/comparendos_dei_2018.geojson";
 			JsonReader reader;
 
 			List<String> lista = new ArrayList<String>();
