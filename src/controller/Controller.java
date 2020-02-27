@@ -119,6 +119,7 @@ public class Controller {
 				// mostrar los resultados del algoritmo xxxxxSort que quedaron en el arreglo
 				// copia_Comparendos: los 10 primeros y los 10 últimos comparendos resultantes
 				view.printMessage("------------------------------------------------------------------------");
+				break;
 
 			case 5:
 				
@@ -147,7 +148,7 @@ public class Controller {
 				// mostrar los resultados del algoritmo xxxxxSort que quedaron en el arreglo
 				// copia_Comparendos: los 10 primeros y los 10 últimos comparendos resultantes
 				view.printMessage("------------------------------------------------------------------------");
-
+				break;
 
 			default: 
 				view.printMessage("--------------------------------------------------------------- \n Opcion Invalida !! \n---------------------------------------------------------------");
