@@ -45,7 +45,7 @@ public class Ordenamientos {
 		if(!IsNull(a)){
 			int n = a.length;
 			for (int i = 0; i < n; i++) {
-				int r = (int) (i + Math.random()*n);     // between i and n-1
+				int r = (int)   Math.random()*n;     // between i and n-1
 				Comparable temp = a[i];
 				a[i] = a[r];
 				a[r] = temp;

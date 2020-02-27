@@ -30,19 +30,10 @@ public class Modelo
 	 * Atributos del modelo del mundo
 	 */
 	private ArregloDinamico<Comparendo> datos;
-	private Node<Comparendo> primero;
 	private int numeroNodos;
-	private Node<Comparendo> ultimo;
 	private Ordenamientos ordenar;
 
-	/**
-	 * Constructor del modelo del mundo con capacidad predefinida
-	 */
-	public Modelo()
-	{
-		primero = null;
-		ultimo=null;
-	}
+	
 
 	/**
 	 * Constructor del modelo del mundo con capacidad dada
@@ -66,7 +57,7 @@ public class Modelo
 
 			Gson gson = new Gson();
 
-			String path = "./data/comparendos_dei_2018_small.geojson";
+			String path = "./data/Comparendos_DEI_2018_Bogotá_D.C.geojson";
 			JsonReader reader;
 
 			List<String> lista = new ArrayList<String>();
@@ -153,14 +144,14 @@ public class Modelo
 	}
 
 
-	public int darNumeroNodos(){
-		return numeroNodos;
-	}
+//	public int darNumeroNodos(){
+//		return numeroNodos;
+//	}
 
-	public Node<Comparendo> darUltimoNodo(){
-		return ultimo;
-	}
-	
+//	public Node<Comparendo> darUltimoNodo(){
+//		return ultimo;
+//	}
+//	
 	/**
 	 * Requerimiento de agregar dato
 	 * @param <T>
@@ -192,18 +183,22 @@ public class Modelo
 	 * @param dato Dato a buscar
 	 * @return dato encontrado
 	 */
-	//public Node<Comparendo> buscar(int dato)
-	//{
-	//	Node <Comparendo> actual=primero;
-	//	while(actual!=null)
-	//	{
-	//		if(actual.darTvalor().darID()==dato)
-	//			return actual;
-	//		else actual=actual.darSiguiente();
-	//
-	//	}
-	//	return null;
-	//}
+	public Comparendo buscar(int datoID)
+	{
+		int i = 0;
+		Comparendo actual=datos.darElemento(i);
+
+		while(datos.darElemento(i)!=null)
+		{
+			 actual=datos.darElemento(i);
+			if(actual.darID() == datoID )
+				return actual;
+			++i;
+
+		}
+		return null;
+		}
+	}
 
 
 
@@ -214,7 +209,7 @@ public class Modelo
 
 
 
-}
+
 
 
 

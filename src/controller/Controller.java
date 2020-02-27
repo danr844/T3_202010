@@ -25,7 +25,7 @@ public class Controller {
 	public Controller ()
 	{
 		view = new View();
-		modelo = new Modelo();
+		modelo = new Modelo(10000);
 	}
 
 	public void run() 
@@ -43,13 +43,13 @@ public class Controller {
 			case 1:
 				view.printMessage("------------------------------------------------------------------------\n Se esta cargando la informacion \n------------------------------------------------------------------------");
 				modelo.cargarInfo();
-				if(modelo.darNumeroNodos()!=0)
+				if(modelo.darTamano()!=0)
 				{
 					Comparendo encontrado = modelo.dardatos().darElemento(0);
 					view.printMessage(""+ encontrado.darID()+","+encontrado.darFecha()+","+ encontrado.darClaseVehiculo()+","+encontrado.darTipoServicio()+","+encontrado.darLocalidad()+"\n---------------------------");
 					encontrado=modelo.dardatos().darElemento(modelo.darTamano()-1);
 					view.printMessage(""+ encontrado.darID()+","+encontrado.darFecha()+","+ encontrado.darClaseVehiculo()+","+encontrado.darTipoServicio()+","+encontrado.darLocalidad()+"\n---------------------------");
-					view.printMessage("Total de comparendos leidos: "+modelo.darNumeroNodos()+"");
+					view.printMessage("Total de comparendos leidos: "+modelo.darTamano()+"");
 					view.printMessage("------------------------------------------------------------------------");
 
 				}
