@@ -24,7 +24,8 @@ import model.data_structures.Ordenamientos;
  * Definicion del modelo del mundo
  *
  */
-public class Modelo {
+public class Modelo
+{
 	/**
 	 * Atributos del modelo del mundo
 	 */
@@ -40,6 +41,7 @@ public class Modelo {
 	public Modelo()
 	{
 		primero = null;
+		ultimo=null;
 	}
 
 	/**
@@ -85,6 +87,7 @@ public class Modelo {
 
 				Comparendo user = new Comparendo(id,fecha, medio, Clasevehi, tipoServicio, Infraccion, DescInfra, Localidad );
 				datos.agregar(user);
+				
 				if(e.getAsJsonObject().has("geometry") && !e.getAsJsonObject().get("geometry").isJsonNull()) {
 					for(JsonElement geoElem: e.getAsJsonObject().get("geometry").getAsJsonObject().get("coordinates").getAsJsonArray()) {
 						geo.add(geoElem.getAsDouble());
@@ -92,7 +95,6 @@ public class Modelo {
 					}
 				}
 			}
-
 			System.out.println(Arrays.toString(lista.toArray()));
 
 
@@ -122,10 +124,9 @@ public class Modelo {
 		// Sort a[] into increasing order.   
 		Ordenamientos.ShellSort(datos.darElementos());
 	}
-	public  void ordenarPorMergeSort(ArregloDinamico<Comparendo> a, int lo, int mid, int hi) 
+	public  void ordenarPorMergeSort(ArregloDinamico<Comparendo> a, int lo, int hi) 
 	{  // Merge a[lo..mid] with a[mid+1..hi].
-		Ordenamientos.merge(a.darElementos(), lo, mid, hi);
-
+		Ordenamientos.sortMerge(a.darElementos(), lo, hi);
 	}
 	public void ordenarPorQuick(ArregloDinamico<Comparendo> datos)
 	{
@@ -159,6 +160,7 @@ public class Modelo {
 	public Node<Comparendo> darUltimoNodo(){
 		return ultimo;
 	}
+	
 	/**
 	 * Requerimiento de agregar dato
 	 * @param <T>

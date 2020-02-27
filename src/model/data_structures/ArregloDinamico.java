@@ -55,6 +55,10 @@ public class ArregloDinamico <T extends Comparable<T>> implements IArregloDinami
 	public int darTamano() {
 		return tamanoAct;
 	}
+	public boolean estaVacio()
+	{
+		return true? tamanoAct==0:false;
+	}
 
 	public  T darElemento(int i) {
 		// TODO implementar

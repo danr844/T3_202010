@@ -74,21 +74,33 @@ public class Ordenamientos {
 	{     
 		shuffle(a);       
 		// Eliminate dependence on input.   
-		sort(a, 0, a.length - 1);   
+		sortQuick(a, 0, a.length - 1);   
 	}   
-	private static void sort(Comparable[] a, int lo, int hi)   
+	private static void sortQuick(Comparable[] a, int lo, int hi)   
 	{      
 		if (hi <= lo) 
 			return;      
 		int j = partition(a, lo, hi);  
 		// Partition (see page 291).      
-		sort(a, lo, j-1);              
+		sortQuick(a, lo, j-1);              
 		// Sort left part a[lo .. j-1].      
-		sort(a, j+1, hi);              
+		sortQuick(a, j+1, hi);              
 		// Sort right part a[j+1 .. hi].   
 
 	}
-	public static  void merge(Comparable[] a, int lo, int mid, int hi){
+	public static void sortMerge(Comparable[] a, int lo, int hi)   
+	{      
+		// Sort a[lo..hi].
+		 if (hi <= lo) return;
+		 int mid = lo + (hi - lo)/2;
+		 sortQuick(a, lo, mid); // Sort left half.
+		 sortQuick(a, mid+1, hi); // Sort right half.
+		 merge(a, lo, mid, hi); // Merge results   
+
+	}
+	
+
+	private static  void merge(Comparable[] a, int lo, int mid, int hi){
 		// Fusionar a[lo..mid] con a[mid+1..hi].
 		Comparable[] aux;
 		aux = new Comparable[a.length];
